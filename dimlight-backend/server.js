@@ -60,6 +60,11 @@ app.use("/trends", trendsRoutes);
 app.use("/score", scoreRoutes);
 app.use("/api", hardwareRoutes);
 
+// Health
+app.get("/health", (req, res) => {
+  res.json({ status: "ok", uptime: process.uptime() });
+});
+
 //error handling middleware
 app.use((err, req, res, next) => {
   console.error("Error:", err.message);
