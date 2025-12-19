@@ -1,0 +1,13 @@
+# Root-level ignore
+# Ignore markdown docs in repo root
+/*.md
+/*.txt
+!README.md
+
+# Common artifacts (optional)
+# Uncomment if you want to ignore these at root too
+# node_modules/
+# dist/
+# build/
+# .env
+# .env.local
