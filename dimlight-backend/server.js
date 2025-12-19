@@ -22,7 +22,7 @@ const app = express();
 
 const aiLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 10, // 10 requests per hour (generous for demos)
+  max: 10, // 10 requests per hour 
   message: "Too many AI requests. Try again in an hour."
 });
 
@@ -31,20 +31,22 @@ connectDB()
   .then(() => seedIfEmpty())
   .catch((e) => console.error("DB connect/seed error:", e.message));
 
-const defaultOrigins = [
+const allowedOrigins = [
   "http://localhost:5173",
-  "https://your-app-name.vercel.app",
-  "https://www.your-app-name.vercel.app"
+  "https://dim-light.vercel.app",
 ];
 
-const allowedOrigins = process.env.CORS_ORIGINS
-  ? process.env.CORS_ORIGINS.split(",").map((o) => o.trim())
-  : defaultOrigins;
-
 app.use(cors({
-  origin: allowedOrigins,
-  credentials: true
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
 }));
+
 app.use(express.json());
 
 const authRoutes = require("./routes/auth.routes");
