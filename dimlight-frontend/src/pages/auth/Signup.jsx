@@ -19,6 +19,15 @@ export default function Signup() {
     setLoading(true);
     setError(null);
     try {
+      // Client-side policy guard to avoid backend 400 (8+ chars, upper/lower/number/symbol)
+      const meetsPolicy = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/.test(password);
+      if (!meetsPolicy) {
+        const msg = "Use 8+ chars with upper/lower, a number, and a symbol";
+        setError(msg);
+        toast.error(msg);
+        return;
+      }
+
       const res = await API.post("/auth/signup", { name, email, password });
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
@@ -31,7 +40,11 @@ export default function Signup() {
     } catch (err) {
       const { message, type } = normalizeApiError(err);
       setError(message);
-      type === "warning" ? toast((t) => ({ ...t, type: "custom" }), { id: "warn", icon: "⚠️", duration: 4000 }) : toast.error(message);
+      if (type === "warning") {
+        toast(message, { id: "warn", icon: "⚠️", duration: 4000 });
+      } else {
+        toast.error(message);
+      }
     } finally {
       setLoading(false);
     }
