@@ -34,10 +34,7 @@ connectDB()
   .then(() => seedIfEmpty())
   .catch((e) => console.error("DB connect/seed error:", e.message));
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://dim-light.vercel.app",
-];
+const allowedOrigins = (process.env.CORS_ORIGINS || "http://localhost:5173,https://dim-light.vercel.app").split(",").map(origin => origin.trim());
 
 app.use(cors({
   origin: function (origin, callback) {
