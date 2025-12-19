@@ -20,6 +20,9 @@ dotenv.config();
 
 const app = express();
 
+// Trust Render's proxy
+app.set('trust proxy', 1);
+
 const aiLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
   max: 10, // 10 requests per hour 
