@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
 const users = [
-  { id: 1, name: "Bhrigu Kumar Deka", image: "../../public/avatar-1.png" },
-  { id: 2, name: "Ghushit Kumar Chutia", image: "../../public/avatar-2.png" },
-  { id: 3, name: "Rudrapratap Singh Jat", image: "../../public/avatar-3.png" },
+  { id: 1, name: "Bhrigu Kumar Deka", image: "/avatar-1.png" },
+  { id: 2, name: "Ghushit Kumar Chutia", image: "/avatar-2.png" },
+  { id: 3, name: "Rudrapratap Singh Jat", image: "/avatar-3.png" },
 ];
 
 export default function AvatarGroup() {
