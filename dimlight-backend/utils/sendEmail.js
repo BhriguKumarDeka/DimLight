@@ -1,21 +1,24 @@
 const nodemailer = require("nodemailer");
 const getEmailTemplate = require("./emailTemplate");
 
-const sendEmail = async (options) => {
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT || 465,
-    secure: true, // Use SSL/TLS
-    auth: {
-      user: process.env.SMTP_EMAIL,
-      pass: process.env.SMTP_PASSWORD,
-    },
-  });
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: 465, 
+  secure: true, 
+  auth: {
+    user: process.env.SMTP_EMAIL,
+    pass: process.env.SMTP_PASSWORD,
+  },
+  connectionTimeout: 10000,
+  greetingTimeout: 10000,
+});
 
+const sendEmail = async (options) => {
+  try{
   const htmlContent = getEmailTemplate(
-    options.title || options.subject, // Title inside the card
-    options.message,                  // The main text
-    options.actionUrl,                // (Optional) Button Link
+    options.title || options.subject, 
+    options.message,                  
+    options.actionUrl,                
     options.actionText                // (Optional) Button Text
   );
 
@@ -24,12 +27,15 @@ const sendEmail = async (options) => {
     to: options.email,
     subject: options.subject,
     html: htmlContent,
-    // Optional: Add HTML for prettier emails later
-    // html: options.html 
   };
 
   const info = await transporter.sendMail(message);
-  console.log("Message sent: %s", info.messageId);
+  console.log("Message sent:", info.messageId);
+  return info;
+}catch(error){
+  console.error("Welcome email failed:", error);
+  throw error;
+}
 };
 
 module.exports = sendEmail;
