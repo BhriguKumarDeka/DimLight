@@ -33,26 +33,25 @@ exports.signup = async (req, res) => {
       password: hashedPassword,
       userType
     });
+    
+    // 5. Generate Token
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
+    
+    res.status(201).json({ message: "Signup successful", token, user });
 
-    // 5. Send Welcome Email (Async - don't block response)
-    try {
-      await sendEmail({
+    // 6. Send Welcome Email 
+    setImmediate(() => {
+      sendEmail({
         email: user.email,
         subject: "Welcome to DimLight!",
         title: "Welcome Aboard!",
         message: `Hi ${user.name},\n\nWe are excited to help you start your journey to better sleep.`,
         actionUrl: `${process.env.FRONTEND_URL}/dashboard`,
-        actionText: "Go to Dashboard"
+        actionText: "Go to Dashboard",
+      }).catch(err => {
+        console.error("Welcome email failed:", err);
       });
-    } catch (emailErr) {
-      console.error("Welcome email failed:", emailErr);
-      // Don't fail the signup just because email failed
-    }
-
-    // 6. Generate Token
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
-
-    res.status(201).json({ message: "Signup successful", token, user });
+    });
 
   } catch (err) {
     console.error("Signup error:", err);
@@ -109,26 +108,29 @@ exports.forgotPassword = async (req, res) => {
     // 3. Create Reset URL (Frontend URL)
     const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
 
-    try {
-      await sendEmail({
+    res.status(200).json({ success: true, data: "Password Reset Email sent" });
+
+    setImmediate(() => {
+      sendEmail({
         email: user.email,
         subject: "Reset Password",
         title: "Reset Your Password",
         message: "You requested a password reset. Click the button below to set a new password. This link expires in 10 minutes.",
         actionUrl: resetUrl,
         actionText: "Reset Password"
-      });
+      }).catch( async err => {
+        console.error("Reset email failed:", err);
+      
 
-      res.status(200).json({ success: true, data: "Email sent" });
-    } catch (err) {
       // Rollback if email fails
       user.resetPasswordToken = undefined;
       user.resetPasswordExpire = undefined;
       await user.save({ validateBeforeSave: false });
-      return res.status(500).json({ message: "Email could not be sent" });
-    }
-  } catch (err) {
-    console.error(err);
+    });
+  });
+
+} catch (err) {
+    console.error("Forgot password error:", err);
     res.status(500).json({ message: "Server Error" });
   }
 };

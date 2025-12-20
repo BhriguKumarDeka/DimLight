@@ -3,8 +3,8 @@ const getEmailTemplate = require("./emailTemplate");
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
-  port: 465, 
-  secure: true, 
+  port: Number(process.env.SMTP_PORT), //587
+  secure: false, 
   auth: {
     user: process.env.SMTP_EMAIL,
     pass: process.env.SMTP_PASSWORD,
