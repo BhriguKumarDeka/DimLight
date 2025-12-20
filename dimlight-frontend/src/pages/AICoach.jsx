@@ -1,5 +1,5 @@
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { showSuccess, showError, showInfo } from "../utils/toastUtils";
 import API from "../api/api";
 import { Sparkles, Lightbulb } from "lucide-react";
 import { motion } from "motion/react";
@@ -19,15 +19,15 @@ export default function AICoach() {
       if (res.data.coachMessage === null && !res.data.analysis) {
         setError("Not enough data yet.");
         setData(null);
-        toast.info("Need more sleep data for accurate analysis.");
+        showInfo("Need more sleep data for accurate analysis.");
       } else {
         setData(res.data);
-        toast.success("Analysis generated successfully!");
+        showSuccess("Analysis generated successfully!");
       }
     } catch (err) {
       const errorMsg = "Unable to load AI coach. Please try again.";
       setError(errorMsg);
-      toast.error(errorMsg);
+      showError(errorMsg);
       console.error(err);
     } finally {
       setLoading(false);

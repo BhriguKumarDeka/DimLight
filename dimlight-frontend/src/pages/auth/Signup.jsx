@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import toast from "react-hot-toast";
+import { showSuccess, showError, showWarning } from "../../utils/toastUtils";
 import API from "../../api/api";
 import { Moon, ArrowRight, User, Mail, Lock, AlertCircle, Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { motion } from "motion/react";
@@ -24,7 +24,7 @@ export default function Signup() {
       if (!meetsPolicy) {
         const msg = "Use 8+ chars with upper/lower, a number, and a symbol";
         setError(msg);
-        toast.error(msg);
+        showError(msg);
         return;
       }
 
@@ -32,7 +32,7 @@ export default function Signup() {
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user", JSON.stringify(res.data.user));
-        toast.success("Account created successfully!");
+        showSuccess("Account created successfully!");
         navigate("/dashboard");
       } else {
         navigate("/login");
@@ -41,9 +41,9 @@ export default function Signup() {
       const { message, type } = normalizeApiError(err);
       setError(message);
       if (type === "warning") {
-        toast(message, { id: "warn", icon: "⚠️", duration: 4000 });
+        showWarning(message);
       } else {
-        toast.error(message);
+        showError(message);
       }
     } finally {
       setLoading(false);

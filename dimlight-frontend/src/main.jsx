@@ -9,30 +9,50 @@ createRoot(document.getElementById('root')).render(
     <App />
     <Toaster
       position="top-right"
+      reverseOrder={false}
+      containerClassName="z-[9999]"
       toastOptions={{
-        duration: 4000,
-        className: 'z-[9999]',
+        duration: 3500,
         style: {
-          background: 'rgba(10, 11, 12, 0.95)',
-          color: 'rgb(255, 255, 255)',
-          border: '1px solid rgba(100, 200, 235, 0.5)',
-          borderRadius: '12px',
-          boxShadow: '0 10px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(100, 200, 235, 0.3)',
-          backdropFilter: 'blur(10px)',
-          padding: '16px 20px',
+          background: 'rgb(var(--surface))',
+          color: 'rgb(var(--text))',
+          borderRadius: '4px',
+          padding: '12px 16px',
+          fontSize: '12px',
+          fontWeight: '300',
         },
+
         success: {
-          iconTheme: { primary: '#10b981', secondary: 'white' },
-          style: { borderColor: 'rgba(16, 185, 129, 0.5)' },
+          iconTheme: {
+            primary: 'rgb(var(--success))',
+            secondary: 'rgb(var(--surface))',
+          },
+          style: {
+            borderBottom: '0.8px solid rgb(var(--success))',
+          },
         },
+
         error: {
-          iconTheme: { primary: '#ef4444', secondary: 'white' },
-          style: { borderColor: 'rgba(239, 68, 68, 0.5)' },
+          iconTheme: {
+            primary: 'rgb(var(--error))',
+            secondary: 'rgb(var(--surface))',
+          },
+          style: {
+            borderBottom: '0.8px solid rgb(var(--error))',
+          },
         },
+
         loading: {
-          style: { borderColor: 'rgba(100, 200, 235, 0.5)' },
+          iconTheme: {
+            primary: 'rgb(var(--primary))',
+            secondary: 'rgb(var(--surface))',
+          },
+          style: {
+            borderBottom: '0.8px solid rgb(var(--primary))',
+          },
         },
       }}
+
     />
   </StrictMode>,
 )

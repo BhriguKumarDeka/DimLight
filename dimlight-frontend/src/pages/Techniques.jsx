@@ -1,5 +1,5 @@
 import { useEffect, useState, memo } from "react";
-import toast from "react-hot-toast";
+import { showError } from "../utils/toastUtils";
 import API from "../api/api";
 import { Link } from "react-router-dom";
 import { Wind, ArrowRight, Clock } from "lucide-react";
@@ -37,7 +37,7 @@ export default function Techniques() {
         const res = await API.get("/techniques");
         setTechniques(res.data.techniques);
       } catch (err) {
-        toast.error("Failed to load techniques. Please try again.");
+        showError("Failed to load techniques. Please try again.");
         console.error(err);
       }
       finally { setLoading(false); }

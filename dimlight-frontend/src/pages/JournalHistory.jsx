@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import toast from "react-hot-toast";
+import { showError } from "../utils/toastUtils";
 import API from "../api/api";
 import { Search, X, ChevronRight, Home, BookOpen } from "lucide-react";
 import dayjs from "dayjs";
@@ -81,7 +81,7 @@ export default function JournalGallery() {
             const recentRes = await API.get("/diary/history?limit=15");
             setRecentEntries(recentRes.data.entries || []);
          } catch (err) {
-            toast.error("Failed to load journal history.");
+            showError("Failed to load journal history.");
             console.error(err);
          }
          finally { setLoading(false); }

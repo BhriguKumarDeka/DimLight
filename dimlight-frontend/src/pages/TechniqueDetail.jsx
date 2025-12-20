@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
-import toast from "react-hot-toast";
+import { showError } from "../utils/toastUtils";
 import API from "../api/api";
 import { ChevronRight, Home, Wind, ShieldCheck, CheckCircle2, List } from "lucide-react";
 import { motion } from "motion/react";
@@ -18,10 +18,10 @@ export default function TechniqueDetail() {
             const res = await API.get(`/techniques/${id}`);
             setTechnique(res.data.technique);
             if (!res.data.technique) {
-               toast.error("Technique not found.");
+               showError("Technique not found.");
             }
          } catch (err) {
-            toast.error("Failed to load technique.");
+            showError("Failed to load technique.");
             console.error(err);
          } finally {
             setLoading(false);
@@ -135,14 +135,14 @@ export default function TechniqueDetail() {
                               scale: i === activeStep ? 1 : 0.98,
                            }}
                            className={`p-3 rounded-lg border transition-all duration-300 ${i === activeStep
-                                 ? "bg-surface border-primary/30 shadow-sm"
-                                 : "bg-transparent border-transparent hover:bg-surface/30"
+                              ? "bg-surface border-primary/30 shadow-sm"
+                              : "bg-transparent border-transparent hover:bg-surface/30"
                               }`}
                         >
                            <div className="flex gap-3 items-start">
                               <div className={`shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold border transition-colors duration-300 ${i === activeStep
-                                    ? "bg-primary text-background border-primary"
-                                    : "bg-surface text-textMuted border-border"
+                                 ? "bg-primary text-background border-primary"
+                                 : "bg-surface text-textMuted border-border"
                                  }`}>
                                  {i + 1}
                               </div>

@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
-import toast from "react-hot-toast";
-import Typewriter from "typewriter-effect"; // ✅ IMPORTED LIBRARY
+import { showSuccess, showError, showWarning } from "../../utils/toastUtils";
+import Typewriter from "typewriter-effect";
 import API from "../../api/api";
 import { normalizeApiError } from "../../lib/utils";
 import { AlertCircle, ArrowLeft, Eye, EyeOff } from "lucide-react";
@@ -144,15 +144,15 @@ export default function Login() {
       const res = await API.post("/auth/login", { email, password });
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
-      toast.success("Login successful! Welcome back.");
+      showSuccess("Login successful! Welcome back.");
       navigate("/dashboard");
     } catch (err) {
       const { message, type } = normalizeApiError(err);
       setError(message);
       if (type === "warning") {
-        toast(message, { id: "warn", icon: "⚠️", duration: 4000 });
+        showWarning(message);
       } else {
-        toast.error(message);
+        showError(message);
       }
     } finally {
       setLoading(false);

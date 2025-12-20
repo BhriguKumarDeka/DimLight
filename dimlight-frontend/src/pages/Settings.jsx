@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import toast from "react-hot-toast";
+import { showSuccess, showError } from "../utils/toastUtils";
 import { hardwareService } from "../api/api";
 import { User, Bell, Shield, LogOut, ChevronRight, Moon, Watch, Activity, Egg, Check, RefreshCw } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -62,9 +62,9 @@ export default function Settings() {
       setIsSyncing(true);
       try {
          const res = await hardwareService.syncGoogleData();
-         toast.success(`Synced ${res.data.count} new sleep logs!`);
+         showSuccess(`Synced ${res.data.count} new sleep logs!`);
       } catch (err) {
-         toast.error("Sync failed. Try reconnecting.");
+         showError("Sync failed. Try reconnecting.");
       } finally {
          setIsSyncing(false);
       }
@@ -111,8 +111,8 @@ export default function Settings() {
                         onClick={handleGoogleConnect}
                         disabled={connectedDevices.googleFit || isConnecting}
                         className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all border flex items-center gap-1.5 ${connectedDevices.googleFit
-                              ? "bg-blue-500/10 text-blue-500 border-blue-500/20 cursor-default"
-                              : "bg-text text-background border-transparent hover:bg-text/90"
+                           ? "bg-blue-500/10 text-blue-500 border-blue-500/20 cursor-default"
+                           : "bg-text text-background border-transparent hover:bg-text/90"
                            }`}
                      >
                         {isConnecting ? "..." : connectedDevices.googleFit ? <><Check size={12} /> Connected</> : "Connect"}
