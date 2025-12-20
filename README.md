@@ -132,7 +132,6 @@ DimLight/
 - `GET /trends/...` – trend endpoints
 
 ## Screenshots
-Add your screenshots to `docs/screenshots/` and update paths below:
 
 - Dashboard
   
