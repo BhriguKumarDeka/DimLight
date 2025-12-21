@@ -763,87 +763,104 @@ export default function Landing() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-background border-t border-border pt-20 pb-8 px-6">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
-          <div className="md:col-span-4">
-            <div className="flex items-center gap-2 mb-6">
-              <Moon className="w-4 h-4 text-white" />
-              <span className="text-xl font-bold tracking-tighter">
-                DIMLIGHT
-              </span>
-            </div>
-            <p className="text-xs text-textMuted font-mono leading-relaxed uppercase">
-              Helping you sleep better through
-              <br />
-              data, insight, and support.
-              <br />
-              <br />
-              Made with care.
-            </p>
+      <footer className="bg-background border-t border-white/5 pt-20 pb-8 px-6 relative overflow-hidden">
+      {/* Optional: Subtle footer glow */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#22D3EE]/5 blur-[100px] rounded-full pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 mb-20 relative z-10">
+        
+        {/* BRAND COLUMN */}
+        <div className="md:col-span-4">
+          <div className="flex items-center gap-2 mb-6">
+            <span className="text-xl font-bold tracking-tighter text-text">
+              DIMLIGHT
+            </span>
           </div>
-          <div className="md:col-span-2">
-            <h4 className="text-text text-xs font-bold uppercase tracking-wider mb-6">
-              Quick Links
-            </h4>
-            <ul className="space-y-4 text-xs text-textMuted font-mono">
-              <li>
-                <a href="#features" className="hover:text-text transition-colors">
-                  Features
-                </a>
-              </li>
-              <li>
-                <a href="#faq" className="hover:text-text transition-colors">
-                  FAQ
-                </a>
-              </li>
-              <li>
-                <a href="#pricing" className="hover:text-text transition-colors">
-                  Pricing
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/NotFound" className="hover:text-text transition-colors">
-                  Easter Egg
-                </a>
-              </li>
-            </ul>
+          <p className="text-xs text-textMuted font-mono leading-relaxed uppercase mb-6">
+            Optimizing sleep at <span className="text-text font-bold lowercase">www.dimlight.space</span>
+            <br />
+            through data, insight, and support.
+            <br />
+            <br />
+            Made with care.
+          </p>
+          
+          {/* Social Links */}
+          <div className="flex gap-4">
+            <a 
+              href="https://github.com/BhriguKumarDeka/DimLight" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-textMuted hover:text- transition-colors"
+              aria-label="View source on GitHub"
+            >
+              <img src="/github-mark-white.svg" alt="GitHub logo" className="w-5 h-5" />
+            </a>
           </div>
-          <div className="md:col-span-2">
-            <h4 className="text-text text-xs font-bold uppercase tracking-wider mb-6">
-              Support
-            </h4>
-            <ul className="space-y-4 text-xs text-textMuted font-mono">
-              <li>
-                <a href="#" className="hover:text-text transition-colors">
-                  Guide
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-text transition-colors">
-                  Privacy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-text transition-colors">
-                  Terms
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className="md:col-span-3">
-            <div className="bg-surface/20">
+        </div>
+
+        {/* QUICK LINKS */}
+        <div className="md:col-span-2">
+          <h4 className="text-text text-xs font-bold uppercase tracking-wider mb-6">
+            Quick Links
+          </h4>
+          <ul className="space-y-4 text-xs text-textMuted font-mono">
+            <li>
+              <a href="#features" className="hover:text-primary transition-colors">Features</a>
+            </li>
+            <li>
+              <a href="#faq" className="hover:text-primary transition-colors">FAQ</a>
+            </li>
+            <li>
+              <a href="#pricing" className="hover:text-primary transition-colors">Pricing</a>
+            </li>
+            <li>
+              <a href="/NotFound" className="hover:text-primary transition-colors">Easter Egg</a>
+            </li>
+          </ul>
+        </div>
+
+        {/* SUPPORT */}
+        <div className="md:col-span-3">
+          <h4 className="text-text text-xs font-bold uppercase tracking-wider mb-6">
+            Support
+          </h4>
+          <ul className="space-y-4 text-xs text-textMuted font-mono">
+            <li>
+              <a href="#" className="hover:text-primary transition-colors">Guide</a>
+            </li>
+            <li>
+              <a href="#" className="hover:text-primary  transition-colors">Privacy Policy</a>
+            </li>
+            <li>
+              <a href="#" className="hover:text-primary  transition-colors">Terms of Service</a>
+            </li>
+             <li>
+              <a href="mailto:support@dimlight.space" className="hover:text-primary transition-colors">
+                support@dimlight.space
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div className="md:col-span-3">
+           <div className="opacity-80 hover:opacity-100 transition-opacity">
               <AvatarGroup />
-            </div>
-          </div>
+           </div>
         </div>
-        <div className="text-[10px] text-right text-textMuted font-mono uppercase">
-          <div>© 2025 DIMLIGHT INC.</div>
-          <div className="flex gap-4 mt-4 md:mt-0 justify-end">
-            <span>v3.0.0</span>
-          </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-[10px] text-textMuted font-mono uppercase border-t border-white/5 pt-8">
+        <div>
+          © 2025 DIMLIGHT INC. | <a href="https://dimlight.space" className="hover:text-text transition-colors">dimlight.space</a>
         </div>
-      </footer>
+        <div className="flex gap-4 mt-4 md:mt-0">
+          <span>v3.0.0</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-green-500/50 inline-block my-auto ml-2"></span>
+          <span>Online</span>
+        </div>
+      </div>
+    </footer>
     </div>
   );
 }
