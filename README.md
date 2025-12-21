@@ -3,6 +3,7 @@
 A modern sleep wellness tracker with AI insights, journaling, and technique coaching. Built with React (Vite) + Tailwind on the frontend and Node.js + Express + MongoDB on the backend. Deployed to Vercel (frontend) and Render (backend).
 
 ## Features
+
 - Sleep logging: duration, quality, mood, tags, notes
 - Calendar + trends: weekly stats and patterns
 - AI Coach: weekly analysis and recommendations
