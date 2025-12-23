@@ -764,8 +764,6 @@ export default function Landing() {
 
       {/* Footer */}
       <footer className="bg-background border-t border-white/5 pt-20 pb-8 px-6 relative overflow-hidden">
-      {/* Optional: Subtle footer glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#22D3EE]/5 blur-[100px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 mb-20 relative z-10">
         
